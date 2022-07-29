@@ -26,7 +26,7 @@ export default function Navbar() {
     useEffect(() => {
         const current = JSON.parse(localStorage.getItem('session'))
         if(current && !currentSession.token) setCurrentSession(current)
-        if(!user && currentSession.token) getUserByParam(currentSession.token).then(res => setUser(res.message))
+        if((!user && currentSession.token) || (user && user.propic.url)) getUserByParam(currentSession.token).then(res => setUser(res.message))
     }, [currentSession, user])
 
     return (

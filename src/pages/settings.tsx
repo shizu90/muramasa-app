@@ -4,7 +4,6 @@ import { ErrorScreen } from '../styles/components/ErrorScreen'
 import useApi from '../hooks/useApi'
 import { useEffect, useState } from 'react'
 import Button from '../components/Button'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function Settings() {
@@ -13,6 +12,7 @@ export default function Settings() {
     const [user, setUser] = useState<any>(undefined)
     const [bio, setBio] = useState<string>("")
     const [propic, setPropic] = useState<any>('')
+    const [file, setFile] = useState<any>()
     const {getUserByParam, updateUserInfo, sendUpload} = useApi()
     const router = useRouter()
 
@@ -38,6 +38,7 @@ export default function Settings() {
         e.preventDefault()
         if(session){
             updateUserInfo(session.token, newUsername, newBio)
+            if(file) sendUpload(session.token, file)
             router.push({pathname: "/user/", query: {id: user.UID}})
         }
     }
@@ -49,7 +50,11 @@ export default function Settings() {
     }
 
     function handlePropic(e: any) {
-        sendUpload(session.token, e.target.files[0]);
+        const file = e.target.files[0]
+        setFile(file)
+        const path = new FileReader()
+        path.onloadend = function() {setPropic(path.result)}
+        path.readAsDataURL(file)
     }
 
     return (
@@ -69,7 +74,7 @@ export default function Settings() {
                         <textarea placeholder={'Change bio'} maxLength={390} onChange={(e) => setBio(e.target.value)} value={bio}></textarea>
                     </div>
                     <div>
-                        <img src={(user.propic && user.propic.url) || "/nopropic.png"}></img>
+                        <img src={propic || ((user.propic && user.propic.url)) || "/nopropic.png"}></img>
                         <label>
                             Change propic
                             <input type='file' onChange={(e) => handlePropic(e)}></input>
