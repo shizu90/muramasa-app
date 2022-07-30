@@ -1,4 +1,4 @@
-import {FaCalendarAlt, FaList, FaTv, FaRegHeart, FaHeart} from 'react-icons/fa'
+import {FaCalendarAlt, FaList, FaTv, FaRegHeart, FaHeart, FaStar, FaStarHalf, FaRegStar, FaStarHalfAlt} from 'react-icons/fa'
 import {Card, InfoContainer, StatusList, FavoriteStatus} from '../styles/components/mediaCard'
 import useCapitalize from '../hooks/useCapitalize'
 import useDate from '../hooks/useDate'
@@ -9,6 +9,7 @@ import {useState, useEffect} from 'react'
 import Select from './Select'
 import NumberInput from './NumberInput'
 import mediaCardGeneral from '../modules/mediaCard'
+import StarRatingComponent from "react-star-rating-component"
 
 interface MediaCardProps {
     data: {attributes: any, type: any, id: any}
@@ -18,7 +19,7 @@ export default function MediaCard(props: MediaCardProps) {
     const {capitalize} =  useCapitalize()
     const {getWeekday} = useDate()
     const {getMediaInList, status} = useApi()
-    const {changeCount, changeStat, addToList, deleteFromList, setFavorite, showMore, updateList} = mediaCardGeneral()
+    const {changeCount, changeStat, addToList, deleteFromList, setFavorite, showMore, updateList, changeRating} = mediaCardGeneral()
     const [show, setShow] = useState<boolean>(false)
     const [list, setList] = useState<boolean>(false)
     const [media, setMedia] = useState<Media>()
@@ -36,10 +37,11 @@ export default function MediaCard(props: MediaCardProps) {
                     title: props.data.attributes.canonicalTitle
                 }
                 if(res.status === "error"){
-                    setMedia(new Media(dataToStore, false, props.data.id, 'watching', props.data.type, 0))
+                    const progress = props.data.type === "anime" ? "watching" : "reading"
+                    setMedia(new Media(dataToStore, false, props.data.id, progress, props.data.type, 0, 0))
                     setList(false)
                 }else{
-                    setMedia(new Media(dataToStore, res.message.favorited, res.message.id, res.message.progress, props.data.type, res.message.count))
+                    setMedia(new Media(dataToStore, res.message.favorited, res.message.id, res.message.progress, props.data.type, res.message.count, res.message.rating))
                     setFavorited(res.message.favorited)
                     setList(true)
                 }
@@ -50,7 +52,7 @@ export default function MediaCard(props: MediaCardProps) {
                 countLength: props.data.attributes.chapterCount | props.data.attributes.episodeCount, 
                 title: props.data.attributes.canonicalTitle
             }
-            setMedia(new Media(dataToStore, false, props.data.id, '', props.data.type, 0))
+            setMedia(new Media(dataToStore, false, props.data.id, '', props.data.type, 0, 0))
         }
     }, [])
     function count(current: number){
@@ -59,6 +61,10 @@ export default function MediaCard(props: MediaCardProps) {
     function stat(current: string){
         changeStat(media, current)
     }
+    function rating(current: number) {
+        changeRating(current, media)
+    } 
+    console.log(media)
     return (
         <Card>
             {media?(
@@ -86,6 +92,8 @@ export default function MediaCard(props: MediaCardProps) {
                             </>
                         ): <p>Login to favorite</p>}
                         <hr/>
+                        {currentSession?
+                        (<>Rating: <NumberInput maxNumber={10} minNumber={0} onChange={rating} value={media.rating}></NumberInput><hr/></>) : null}
                         {responsive.matches ? (
                             <>    
                                 <p>
@@ -123,7 +131,10 @@ export default function MediaCard(props: MediaCardProps) {
                                     <FaList></FaList>
                                 </div>
                                 <p>
-                                    {props.data.attributes.episodeCount || props.data.attributes.chapterCount}
+                                    {props.data.attributes.episodeCount || props.data.attributes.chapterCount ? 
+                                        props.data.attributes.episodeCount || props.data.attributes.chapterCount :
+                                        "?"
+                                    }
                                 </p>
                             </li> 
                         </StatusList>
@@ -146,9 +157,8 @@ export default function MediaCard(props: MediaCardProps) {
                                         <Button type="button" onClick={() => updateList(media, currentSession.token, list, setList)} value={"Update"}></Button>
                                     </>
                                 )}
-                                
+                                <hr/>
                             </>): null}
-                            <hr></hr>
                     </InfoContainer>
                 </>
             ): null}

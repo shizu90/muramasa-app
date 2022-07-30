@@ -44,17 +44,32 @@ export const InfoContainer = styled.div`
         }
     }
 
+    select {
+        margin-left: 0;
+    }
+
     hr {
         margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    input {
-        margin-right: 10px;
+    input[type="number"] {
+        margin-left: 0;
+        margin-right: 0;
     }
 
+    input[type="button"] {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    span.mediaRating {
+        font-size: 24px;
+    }
+    
     input:last-child {
         margin-right: 0;
+        margin-left: 0;
     }
     
     @media (max-width: 999px) {

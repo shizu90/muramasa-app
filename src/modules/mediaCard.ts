@@ -31,6 +31,9 @@ export default function mediaCardGeneral(){
     function changeCount(currentCount: number, media: Media){
         media.count = currentCount
     }
+    function changeRating(currentRating: number, media: Media){
+        media.rating = currentRating
+    }
     function setFavorite(media: Media, method: "add" | "delete", token: string, favorited?: boolean, setFavorited?: (...params: any) => void){
         media.favorited = true;
         updateUserFavorites(token, media, method);
@@ -48,6 +51,7 @@ export default function mediaCardGeneral(){
         changeCount,
         setFavorite,
         changeStat,
+        changeRating,
         showMore,
         updateList
     }

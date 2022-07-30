@@ -1,50 +1,59 @@
-import { CarouselContainer, CarouselLeft, CarouselRight } from "../styles/components/Carousel"
-import {FaArrowLeft, FaArrowRight} from 'react-icons/fa'
-import { useRef } from "react"
-import Link from 'next/link'
+import { CarouselContainer, CarouselItem } from "../styles/components/Carousel"
+import Carousel from "react-elastic-carousel"
+import { useState, useRef, useEffect } from "react";
 
 interface CarouselProps {
-    info: any
+
 }
 
-export default function Carousel(props: CarouselProps) {
-    const carousel = useRef(null)
+export default function CarouselComponent(props: CarouselProps) {
+    let resetTimeOut;
+    const carouselRef = useRef(null)
+    const breakPoints = [
+        { width: 1, itemDisplay: 1 },
+        { width: 550, itemDisplay: 2, itemToScroll: 2},
+        { width: 758, itemDisplay: 3 },
+        { width: 1200, itemDisplay: 4 }
+    ];
 
-    function toSingleView(media: any){
-        localStorage.setItem('arg', JSON.stringify(media))
-    }
+    const [items, setItems] = useState<Array<JSX.Element>>([
+        <div>
+            <h4>Track your animes</h4>
+            <p>Lorem ipsum aodgkopsdfgkposdf kfhgkofghfsdhgdsfghfgdjfghjghfjghkghjkghjkhkg</p>
+        </div>,
+        <div>
+            <h4>Track your animes</h4>
+            <p>Lorem ipsum aodgkopsdfgkposdf kfhgkofghghjkghjkghkghkjgkghjkghjkghk</p>
+        </div>,
+        <div>
+            <h4>Track your animes</h4>
+            <p>Lorem ipsum aodgkopsdfgkposdf kfhgkofghghkjghkghkgkghjkghjkghkjgkgkghjkgkgjhkghjkghjkghjkghk</p>
+        </div>]);
 
-    const slideRight = (e: any) => {
-        e.preventDefault()
-        carousel.current.scrollLeft -= carousel.current.offsetWidth
-    }
-
-    const slideLeft = (e: any) => {
-        e.preventDefault()
-        carousel.current.scrollLeft += carousel.current.offsetWidth
-    }
-
+    
     return (
-        <CarouselContainer>
-          <CarouselLeft onClick={(e) => slideRight(e)}>
-            <FaArrowLeft/>
-          </CarouselLeft>  
-          <ul ref={carousel}>
-            {props.info.data? (
-            <>
-              {props.info.data.map((item: any) => (
-                <Link href={'/singleView/' + item.id} key={item.id}>
-                  <li onClick={() => toSingleView(item)}>
-                    <img src={item.attributes.posterImage.large}></img>
-                    <p>{item.attributes.canonicalTitle}</p>
-                  </li>
-                </Link>
-              ))}
-            </>): <p>Failed do call api</p>}
-          </ul>
-          <CarouselRight onClick={(e) => slideLeft(e)}>
-            <FaArrowRight/>
-          </CarouselRight>
-        </CarouselContainer>
+        <CarouselContainer> 
+            <Carousel 
+            ref={carouselRef} 
+            isRTL 
+            itemsToShow={1} 
+            breakPoints={breakPoints} 
+            enableAutoPlay 
+            autoPlaySpeed={10500} 
+            onNextEnd={({ index }) => {
+                clearTimeout(resetTimeOut)
+                if(index + 1 === items.length) {
+                    resetTimeOut = setTimeout(() => {
+                        carouselRef.current.goTo(0)
+                    }, 1500)
+                }
+            }}>
+                {items.map((item, index) => (
+                    <CarouselItem key={index + 0} img="/capa.jpg">
+                        {item}
+                    </CarouselItem>
+                ))}
+            </Carousel>
+        </CarouselContainer>    
     )
 }

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Button from '../components/Button'
 import { ErrorScreen } from '../styles/components/ErrorScreen'
 import Head from 'next/head'
+import { FaStar } from 'react-icons/fa'
 
 export default function UserProfile(){
     const [user, setUser] = useState<any>(undefined)
@@ -135,7 +136,10 @@ export default function UserProfile(){
                                                 <Link href={{pathname: `/${item.type}/`, query: {id: item.id}}} key={item.id}>
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
-                                                        <p>{item.data.title}</p><span>{item.count}/{item.data.countLength === 0 ? 'N/A' : item.data.countLength}</span>
+                                                        <p>{item.data.title}</p>
+                                                        <span>{item.count}/{item.data.countLength === 0 ? '?' : item.data.countLength}</span>
+                                                        <br/>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -154,6 +158,7 @@ export default function UserProfile(){
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
                                                         <p>{item.data.title}</p>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -171,7 +176,10 @@ export default function UserProfile(){
                                                 <Link href={{pathname: `/${item.type}/`, query: {id: item.id}}} key={item.id}>
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
-                                                        <p>{item.data.title}</p><span>{item.count}/{item.data.countLength === 0 ? 'N/A' : item.data.countLength}</span>
+                                                        <p>{item.data.title}</p>
+                                                        <span>{item.count}/{item.data.countLength === 0 ? '?' : item.data.countLength}</span>
+                                                        <br/>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -190,6 +198,7 @@ export default function UserProfile(){
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
                                                         <p>{item.data.title}</p>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -220,7 +229,10 @@ export default function UserProfile(){
                                                 <Link href={{pathname: `/${item.type}/`, query: {id: item.id}}} key={item.id}>
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
-                                                        <p>{item.data.title}</p><span>{item.count}/{item.data.countLength}</span>
+                                                        <p>{item.data.title}</p>
+                                                        <span>{item.count}/{item.data.countLength === 0 ? '?' : item.data.countLength}</span>
+                                                        <br/>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -239,6 +251,7 @@ export default function UserProfile(){
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
                                                         <p>{item.data.title}</p>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -257,6 +270,9 @@ export default function UserProfile(){
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
                                                         <p>{item.data.title}</p>
+                                                        <span>{item.count}/{item.data.countLength === 0 ? '?' : item.data.countLength}</span>
+                                                        <br/>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))
@@ -275,6 +291,7 @@ export default function UserProfile(){
                                                     <li key={item.id}>
                                                         <img src={item.data.image}></img>
                                                         <p>{item.data.title}</p>
+                                                        {item.rating?(<span><FaStar/>{item.rating}</span>):null}
                                                     </li>
                                                 </Link>
                                             ))

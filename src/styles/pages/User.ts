@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const UserPage = styled.div`
-    margin-top: 63px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-top: 50px;
+    height: 100%;
     hr {
         margin-top: 10px;
         margin-bottom: 10px;

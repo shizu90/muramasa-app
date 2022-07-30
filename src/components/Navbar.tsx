@@ -22,11 +22,11 @@ export default function Navbar() {
         localStorage.removeItem('session')
         window.location.reload()
     }
-    
+
     useEffect(() => {
         const current = JSON.parse(localStorage.getItem('session'))
         if(current && !currentSession.token) setCurrentSession(current)
-        if((!user && currentSession.token) || (user && user.propic.url)) getUserByParam(currentSession.token).then(res => setUser(res.message))
+        if((!user && currentSession.token) || (user && user.propic && user.propic.url)) getUserByParam(currentSession.token).then(res => setUser(res.message))
     }, [currentSession, user])
 
     return (
@@ -57,15 +57,13 @@ export default function Navbar() {
                         </NavbarLink>
                     </Link>
                 </li>
-                {currentSession ? (
                 <li>
                     <Link href={`/community`}>
                         <NavbarLink>
-                            My list
+                            Community
                         </NavbarLink>
                     </Link>
                 </li>
-                ) : null}
                 {currentSession && user? (
                     <li>
                         <NavbarProfile>

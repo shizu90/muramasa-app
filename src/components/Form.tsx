@@ -27,11 +27,11 @@ export default function Form(props: FormProps) {
     }
 
     const handleClickRegister = (e) => {
-        e.preventDefault()
         register(values["email"], 
             values["password"], 
             values["passwordConfirm"], 
             values["username"])
+        console.log(status)
         if(status && status.status === "success") {
             status.message = ""
             router.push("/login")
@@ -40,11 +40,9 @@ export default function Form(props: FormProps) {
     }
     const handleClickLogin = (e) => {
         e.preventDefault()
-        login(values["email"], values["password"])
-        if(status && status.status === "success"){
-            status.message = ""
-            router.push("/")
-        }
+        login(values["email"], values["password"]).then(res => {
+            if(res && res.status === "success") router.push("/")
+        })
     }
     return (
         <>

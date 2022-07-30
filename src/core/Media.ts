@@ -5,14 +5,16 @@ export default class Media{
     #progress: string
     #type: string
     #count: number
+    #rating: number
 
-    constructor(data: any, favorited: boolean, id: any, progress: string, type: string, count: number){
+    constructor(data: any, favorited: boolean, id: any, progress: string, type: string, count: number, rating: number){
         this.#data = data
         this.#favorited = favorited
         this.#id = id
         this.#progress = progress
         this.#type = type
         this.#count = count | 0
+        this.#rating = rating | 0
     }
     get id() {
         return this.#id
@@ -32,6 +34,9 @@ export default class Media{
     get count() {
         return this.#count
     }
+    get rating() {
+        return this.#rating
+    }
     set favorited(favorited){
         this.#favorited = favorited
     }
@@ -40,5 +45,8 @@ export default class Media{
     }
     set count(count){
         this.#count = count
+    }
+    set rating(rating) {
+        this.#rating = rating
     }
 }

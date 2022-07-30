@@ -42,6 +42,7 @@ export default function UseApi() {
             }else{
                 setStatus(res);
             }
+            return res
         });
     };
 
@@ -109,9 +110,9 @@ export default function UseApi() {
             progress: media.progress,
             favorited: media.favorited,
             count: media.count,
+            rating: media.rating,
             data: {image: media.data.image, countLength: media.data.countLength, title: media.data.title}
         }
-        console.log(param)
         fetch(`http://localhost:8080/users/animelist/${param}`, {
             method: "PUT",
             headers: {
@@ -132,6 +133,7 @@ export default function UseApi() {
             progress: media.progress,
             favorited: media.favorited,
             count: media.count,
+            rating: media.rating,
             data: {image: media.data.image, countLength: media.data.countLength, title: media.data.title}
         }
         return fetch(`http://localhost:8080/users/mangalist/${param}`, {
@@ -154,6 +156,7 @@ export default function UseApi() {
             progress: media.progress,
             favorited: media.favorited,
             count: media.count,
+            rating: media.rating,
             data: {image: media.data.image, countLength: media.data.countLength, title: media.data.title}
         }
         return fetch(`http://localhost:8080/users/favorites/${param}`, {

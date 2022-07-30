@@ -8,6 +8,8 @@ export const SelectBox = styled.select`
     font-size: 16px;
     padding: 5px;
     cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
     &:focus {
         outline: none;
         border: 2px solid ${props => props.theme.colors.primary};

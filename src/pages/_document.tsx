@@ -29,6 +29,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet='utf-8'></meta>
           <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet'></link>
+          <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet"></link>
         </Head>
         <body>
           <Main/>

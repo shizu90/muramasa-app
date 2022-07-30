@@ -5,6 +5,7 @@ import useApi from '../hooks/useApi'
 import { useEffect, useState } from 'react'
 import Button from '../components/Button'
 import { useRouter } from 'next/router'
+import { blob } from 'stream/consumers'
 
 export default function Settings() {
     const [session, setSession] = useState<any>()
@@ -33,7 +34,7 @@ export default function Settings() {
                 setBio(res.message.bio)
             }
         })
-    }, [user])
+    }, [user, bio])
     function saveSettings(newUsername: string, newBio: string, e){
         e.preventDefault()
         if(session){
@@ -54,7 +55,7 @@ export default function Settings() {
         setFile(file)
         const path = new FileReader()
         path.onloadend = function() {setPropic(path.result)}
-        path.readAsDataURL(file)
+        if(file instanceof Blob)path.readAsDataURL(file)
     }
 
     return (

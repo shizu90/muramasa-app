@@ -6,10 +6,12 @@ export const NavbarContainer = styled.div`
     justify-content: space-around;
     background-color: ${props => props.theme.colors.background}cc;
     padding-top: 1em;
+    padding-bottom: 1em;
     flex-wrap: wrap;
     width: 100%;
     position: fixed;
     top: 0;
+    align-items: center;
     h1 {
         font-size: 22px;
         padding: 10px;
@@ -21,7 +23,6 @@ export const NavbarContainer = styled.div`
 export const NavbarList = styled.ul`
     list-style: none;
     display: flex;
-    letter-spacing: 2px;
     align-items: center;
     li {
         margin-left: 2em;
@@ -45,10 +46,11 @@ export const NavbarList = styled.ul`
 export const NavbarLink = styled.a`
     color: inherit;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
+    letter-spacing: 1px;
     cursor: pointer;
     &:hover {
-        opacity: 0.7;
+        opacity: 0.8;
     }
 `
 export const NavbarResponsive = styled.div`

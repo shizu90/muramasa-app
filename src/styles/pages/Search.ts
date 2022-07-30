@@ -11,6 +11,9 @@ export const SearchContainer = styled.div`
 export const SearchHandler = styled.div`
     display: inline-block;
     margin-top: 5em;
+    select {
+        margin-left: 0;
+    }
 `
 
 export const SearchResult = styled.div`
