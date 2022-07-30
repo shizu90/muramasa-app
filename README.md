@@ -15,7 +15,6 @@ A web app that allows you to create an anime or manga list and save it in your a
 * Create an account and login ✓
 * Edit account anime or manga list ✓
 * Manage account favorites ✓
-* Add and remove friends X
 * Community system X
 
 ### Run the project
